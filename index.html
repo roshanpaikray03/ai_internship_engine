@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Internship Recommendation Engine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      background: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .results {
+      max-width: 800px;
+      margin: 30px auto;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .card h3 {
+      margin: 0 0 10px;
+      color: #2c3e50;
+    }
+    .card p {
+      margin: 0;
+      color: #555;
+    }
+    .score {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>AI Internship Recommendation Engine</h1>
+
+  <form id="recommendForm">
+    <label for="skills">Enter your skills (comma-separated):</label>
+    <input type="text" id="skills" placeholder="e.g. Python, Data Analysis">
+
+    <label for="interests">Enter your interests (comma-separated):</label>
+    <input type="text" id="interests" placeholder="e.g. AI, Machine Learning">
+
+    <button type="submit">Get Recommendations</button>
+  </form>
+
+  <div class="results" id="results"></div>
+
+  <script>
+    document.getElementById("recommendForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const skills = document.getElementById("skills").value.split(",").map(s => s.trim());
+      const interests = document.getElementById("interests").value.split(",").map(i => i.trim());
+
+      const response = await fetch("http://127.0.0.1:8000/recommend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ skills, interests })
+      });
+
+      const data = await response.json();
+      const resultsDiv = document.getElementById("results");
+      resultsDiv.innerHTML = "";
+
+      if (data.recommendations && data.recommendations.length > 0) {
+        data.recommendations.forEach(rec => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <h3>${rec.title}</h3>
+            <p>${rec.description}</p>
+            <div class="score">Match Score: ${rec.score}</div>
+          `;
+          resultsDiv.appendChild(card);
+        });
+      } else {
+        resultsDiv.innerHTML = "<p>No recommendations found.</p>";
+      }
+    });
+  </script>
+
+</body>
+</html>

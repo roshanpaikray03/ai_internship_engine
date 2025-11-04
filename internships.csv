@@ -1,0 +1,7 @@
+id,title,sector,skills,education,location,description,apply_link
+1,Web Dev Intern,IT,"HTML, CSS, JavaScript","B.Tech CSE","Odisha","Frontend development, build UI components","http://example.com/apply/1"
+2,Python Intern,IT,"Python, SQL","B.Sc/B.Tech","Odisha","Scripting and data tasks","http://example.com/apply/2"
+3,Data Entry Intern,Admin,"MS Excel, Typing","Any Graduate","Odisha","Back-office data entry","http://example.com/apply/3"
+4,Rural Health Intern,Healthcare,"Communication, Field Work","B.Sc","Chhattisgarh","Field outreach for health camps","http://example.com/apply/4"
+5,UI/UX Intern,Design,"Figma, Communication","Any Graduate","West Bengal","Design tasks and prototyping","http://example.com/apply/5"
+6,ML Research Intern,IT,"Python, Machine Learning, Data Analysis","M.Tech/B.Tech","Karnataka","Research on ML models and datasets","http://example.com/apply/6"
